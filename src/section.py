@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from room import Building
 from enum import Enum
+import datetime
 
 class Day(Enum):
     Sunday = 0
@@ -16,15 +17,17 @@ class Section:
     # Initializer
     # to create the object, use Section(day, start, end, room, isLecture)
     def __init__(self, day: str, start: str, end: str, building: str, room: str, isLecture: bool):
+
+        # initialize the values
         self.day = processDay(day)
         self.start = start
         self.end = end
-        self.room = building + room
+        self.room = Building(building, room)
         self.isLecture = isLecture
         print("hi")
 
     def __str__(self):
-        return "Section Days: {0}\nClass Start Time: {1}\nClass End Time: {2}\nRoom: {3}\nLecture: {4}".format(self.day, self.start, self.end, self.room, self.isLecture)
+        return "Section Days: {0}\nClass Start Time: {1}\nClass End Time: {2}\nRoom: \n\n{3}\n\n\nLecture: {4}".format(self.day, self.start, self.end, self.room, self.isLecture)
 
     def __repr__(self):
         return str(self)
