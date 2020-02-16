@@ -6,7 +6,6 @@ class Building:
     def __init__(self, building: str, room: str):
         self.building = building
         self.room = room
-        print("hi")
         self.buildingName = ""
         self.address = ""
         self.city = ""
