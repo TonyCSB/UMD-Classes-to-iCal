@@ -6,6 +6,8 @@ from section import Section
 from room import Building
 import datetime, re
 
+calendarName = "test.ics"
+
 def generateCal(courseList):
     cal = Calendar()
     cal.add('x-wr-calname', 'Class Schedule')
@@ -39,11 +41,11 @@ def generateCal(courseList):
             des = section.room.building + " " + section.room.room
             des += "\nSection: " + course.sectionId
             des += "\n" + ("Lecture" if section.isLecture else "Discussion")
-            e['description'] = des
+            e.add('description', des)
 
             cal.add_component(e)
     
-    with open('test.ics', 'wb') as ics_file:
+    with open(calendarName, 'wb') as ics_file:
         ics_file.write(cal.to_ical())
 
 def main():
