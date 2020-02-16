@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 from icalendar import Calendar, Event
 from course import Course
 from section import Section, Day
