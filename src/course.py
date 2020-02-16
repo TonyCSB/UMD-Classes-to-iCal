@@ -53,8 +53,6 @@ class Course:
         print(sectionList)
         self.sectionList = sectionList
 
-
-
     def __str__(self):
         return "Course Id: {0}\nSection Id: {1}\nTerm Id: {2}\n".format(self.courseId, self.sectionId, self.termId)
 
