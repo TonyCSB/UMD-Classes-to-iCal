@@ -11,30 +11,49 @@ class Course:
     def __init__(self, courseId: str, sectionId: str, termId: str):
         url = getUrl(courseId, sectionId, termId)
 
+        # initialize the values
         self.courseId = courseId
         self.sectionId = sectionId
         self.termId = termId
 
+        # get testudo webpage
         page = requests.get(url)
 
+        # check connectivity
         if page.status_code != 200:
             raise ValueError("Unknown Error - Website Out of Reach")
 
+        # parse the website with BeautifulSoup
         soup = BeautifulSoup(page.text, features = 'html.parser')
 
+        # locate the part with section infomation
         sectionInfo = soup.find('div', {'class': 'class-days-container'})
+
+        # check if the section/course exists
         if sectionInfo == None:
             raise ValueError("Error - Course/Section doesn't exist")
 
-        lecture = sectionInfo.find('div', {'class': 'row'})
-        days = lecture.find('span', {'class': 'section-days'}).string
-        start = lecture.find('span', {'class': 'class-start-time'}).string
-        end = lecture.find('span', {'class': 'class-end-time'}).string
-        building = lecture.find('span', {'class': 'building-code'}).string
-        room = lecture.find('span', {'class': 'class-room'}).string
+        # get info for detailed courses
+        sections = sectionInfo.findAll('div', {'class': 'row'})
+        sectionList = []
 
-        lecture = Section(days, start, end, building, room, True)
-        print(lecture)
+        # process lecture and discussion sections for the course
+        for section in sections:
+            days = section.find('span', {'class': 'section-days'}).string
+            start = section.find('span', {'class': 'class-start-time'}).string
+            end = section.find('span', {'class': 'class-end-time'}).string
+            building = section.find('span', {'class': 'building-code'}).string
+            room = section.find('span', {'class': 'class-room'}).string
+
+            if section.find('span', {'class': 'class-type'}) == None:
+                sectionList.append(Section(days, start, end, building, room, True))
+            else:
+                sectionList.append(Section(days, start, end, building, room, False))
+        
+        print(sectionList)
+        self.sectionList = sectionList
+
+
 
     def __str__(self):
         return "Course Id: {0}\nSection Id: {1}\nTerm Id: {2}\n".format(self.courseId, self.sectionId, self.termId)
