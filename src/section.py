@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from room import Building
 from enum import Enum
-import datetime
+import datetime, re
 
 class Day(Enum):
     Sunday = 0
@@ -20,11 +20,10 @@ class Section:
 
         # initialize the values
         self.day = processDay(day)
-        self.start = start
-        self.end = end
+        self.start = processTime(start)
+        self.end = processTime(end)
         self.room = Building(building, room)
         self.isLecture = isLecture
-        print("hi")
 
     def __str__(self):
         return "Section Days: {0}\nClass Start Time: {1}\nClass End Time: {2}\nRoom: \n\n{3}\n\n\nLecture: {4}".format(self.day, self.start, self.end, self.room, self.isLecture)
@@ -46,4 +45,15 @@ def processDay(day:str):
         dayList.append(Day.Friday)
 
     return dayList
+
+def processTime(time):
+    regex = "^(\d?\d):(\d{2})(am|pm)$"
+    match = re.search(regex, time)
     
+    hour = int(match.group(1))
+    minute = int(match.group(2))
+
+    if match.group(3) == "pm":
+        hour = (hour + 12) % 24
+
+    return datetime.time(hour, minute)
