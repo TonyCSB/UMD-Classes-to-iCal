@@ -31,3 +31,10 @@ class Building:
     
     def __repr__(self):
         return str(self)
+
+def main():
+    test = Building("IRB", "0101")
+    print(test)
+
+if __name__ == "__main__":
+    main()
