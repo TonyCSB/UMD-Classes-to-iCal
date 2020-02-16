@@ -2,9 +2,10 @@ import re
 from course import Course
 
 def main():
-    createCourse(input("Enter a course: "))
+    termId = input("Enter the term ID: ")
+    createCourse(input("Enter a course: "), termId)
 
-def createCourse(courseInput):
+def createCourse(courseInput, termId):
     regex = '^([a-zA-Z]{4})\W*(\d{3}[a-zA-Z]?)\W*(\d{4})?$'
     match = re.search(regex, courseInput)
     courseId = match.group(1) + match.group(2)
