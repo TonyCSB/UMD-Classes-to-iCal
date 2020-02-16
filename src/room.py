@@ -23,7 +23,7 @@ class Building:
         self.zip = addressDict["features"][0]["attributes"]["ZIP"]
 
     def __str__(self):
-        return "Building Code: {0}\nRoom Number: {1}".format(self.building, self.room)
+        return "Building Code: {0}\nRoom Number: {1}\nBuilding Name: {2}\nAddress: {3}\nCity: {4}\nState: {5}\nZip: {6}".format(self.building, self.room, self.buildingName, self.address, self.city, self.state, self.zip)
     
     def __repr__(self):
         return str(self)
