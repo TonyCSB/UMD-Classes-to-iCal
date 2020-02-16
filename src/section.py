@@ -53,7 +53,10 @@ def processTime(time):
     hour = int(match.group(1))
     minute = int(match.group(2))
 
-    if match.group(3) == "pm":
-        hour = (hour + 12) % 24
+    if match.group(3) == "pm" and hour != 12:
+        hour = hour + 12
+
+    if hour == 12 and match.group(3) == "am":
+        hour = 0
 
     return datetime.time(hour, minute)

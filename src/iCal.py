@@ -2,7 +2,7 @@
 
 from icalendar import Calendar, Event
 from course import Course
-from section import Section
+from section import Section, Day
 from room import Building
 import datetime, re, breaks
 
@@ -35,9 +35,27 @@ def generateCal(courseList):
                 e.add('summary', course.courseId)
 
                 startTime = datetime.datetime.combine(date[0], section.start)
+                if section.day[0] == Day.Tuesday:
+                    startTime += datetime.timedelta(days = 1)
+                elif section.day[0] == Day.Wednesday:
+                    startTime += datetime.timedelta(days = 2)
+                elif section.day[0] == Day.Thursday:
+                    startTime += datetime.timedelta(days = 3)
+                elif section.day[0] == Day.Friday:
+                    startTime += datetime.timedelta(days = 4)
+
                 e.add('dtstart', startTime)
 
                 endTime = datetime.datetime.combine(date[0], section.end)
+                if section.day[0] == Day.Tuesday:
+                    endTime += datetime.timedelta(days = 1)
+                elif section.day[0] == Day.Wednesday:
+                    endTime += datetime.timedelta(days = 2)
+                elif section.day[0] == Day.Thursday:
+                    endTime += datetime.timedelta(days = 3)
+                elif section.day[0] == Day.Friday:
+                    endTime += datetime.timedelta(days = 4)
+
                 e.add('dtend', endTime)
 
                 days = []
