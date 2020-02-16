@@ -18,8 +18,8 @@ def generateCal(courseList):
             e['dtstart'] = "20200216T" + section.start.strftime("%H%M%S")
             e['dtend'] = "20200216T" + section.end.strftime("%H%M%S")
             e['rrule'] = "FREQ=WEEKLY;WKST=SU;UNTIL=20200513T035959Z;BYDAY=MO,WE"
-            e['location'] = section.building.getAddress()
-            e['description'] = section.building.buildingName + section.building.room
+            e['location'] = section.room.getAddress()
+            e['description'] = section.room.buildingName + section.room.room
             cal.add_component(e)
     
     with open('test.ics', 'wb') as ics_file:
@@ -27,7 +27,7 @@ def generateCal(courseList):
 
 def main():
     c = Course("CMSC132", "0101", "202001")
-    generateCal(c)
+    generateCal([c])
 
 if __name__ == "__main__":
     main()
