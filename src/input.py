@@ -3,7 +3,10 @@ from course import Course
 
 def main():
     termId = input("Enter the term ID: ")
-    createCourse(input("Enter a course: "), termId)
+    courseInput = input("Enter a course: ")
+    while courseInput is not None:
+        createCourse(courseInput, termId)
+        courseInput = input("Enter a course: ")
 
 def createCourse(courseInput, termId):
     regex = '^([a-zA-Z]{4})\W*(\d{3}[a-zA-Z]?)\W*(\d{4})?$'
@@ -14,7 +17,7 @@ def createCourse(courseInput, termId):
         section = input("Enter the section number: ")
     else:
         section = match.group(3)
-    course = Course(courseId, section, 202001)
+    course = Course(courseId, section, termId)
     print(course)
     return course
 
