@@ -34,7 +34,7 @@ class Course:
 def main():
     # For test purpose only
     c = Course("CMSC132", "0101", "202001")
-    c.courseId
+    print(c.courseId)
     print(c)
 
 def getUrl(courseId, sectionId, termId):
