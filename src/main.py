@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
-from getInput import getInput
+from get_input import getInput
 from course import Course
+from iCal import generateCal
 
 def main():
-    courseList = input.getInput()
-    print(courseList)
+    courseList = getInput()
+    print("Course input successfully, generating iCal file now...")
+    generateCal(courseList)
+    print("iCal file generated, please import it into Calendar of your choice!")
+
+if __name__ == "__main__":
+    main()

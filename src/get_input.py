@@ -17,7 +17,7 @@ def getInput():
 def createCourse(courseInput, termId):
     regex = r'^([a-zA-Z]{4})\W*(\d{3}[a-zA-Z]?)\W*(\d{4})?$'
     match = re.search(regex, courseInput)
-    courseId = match.group(1) + match.group(2)
+    courseId = (match.group(1) + match.group(2)).upper()
     section = ""
     if match.group(3) is None:
         section = input("Enter the section number: ")

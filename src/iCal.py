@@ -6,7 +6,7 @@ from section import Section
 from room import Building
 import datetime, re, breaks
 
-calendarName = "test.ics"
+calendarName = "course_schedule.ics"
 
 def generateCal(courseList):
     cal = Calendar()
