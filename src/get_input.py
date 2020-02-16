@@ -24,6 +24,8 @@ def createCourse(courseInput, termId):
     else:
         section = match.group(3)
     course = Course(courseId, section, termId)
+    
+    print()
     print(course)
     return course
 

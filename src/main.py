@@ -5,9 +5,9 @@ from iCal import generateCal
 
 def main():
     courseList = getInput()
-    print("Course input successfully, generating iCal file now...")
+    print("\n\nCourse input successfully, generating iCal file now...")
     generateCal(courseList)
-    print("iCal file generated, please import it into Calendar of your choice!")
+    print("\niCal file generated, please import it into Calendar of your choice!")
 
 if __name__ == "__main__":
     main()
