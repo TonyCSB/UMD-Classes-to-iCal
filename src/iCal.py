@@ -27,7 +27,12 @@ def generateCal(courseList):
 
             e['rrule'] = "FREQ=WEEKLY;WKST=SU;UNTIL=20200513T035959Z;BYDAY=" + ",".join(days)
             e['location'] = section.room.getAddress()
-            e['description'] = section.room.building + " " + section.room.room
+
+            des = section.room.building + " " + section.room.room
+            des += "\nSection: " + course.sectionId
+            des += "\n" + "Lecture" if section.isLecture else "Discussion"
+            e['description'] = des
+            
             cal.add_component(e)
     
     with open('test.ics', 'wb') as ics_file:
