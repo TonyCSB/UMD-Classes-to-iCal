@@ -2,7 +2,7 @@
 import re
 from course import Course
 
-def main():
+def getInput():
     termId = input("Enter the term ID: ")
     courseInput = input("Enter a course: ")
     
@@ -28,4 +28,4 @@ def createCourse(courseInput, termId):
     return course
 
 if __name__ == "__main__":
-    main()
+    getInput()
