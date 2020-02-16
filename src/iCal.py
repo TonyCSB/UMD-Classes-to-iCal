@@ -15,8 +15,10 @@ def generateCal(courseList):
         for section in course.sectionList:
             e = Event()
             e['summary']  = course.courseId
+            # TODO: finish date and time processing
             e['dtstart'] = "20200216T" + section.start.strftime("%H%M%S")
             e['dtend'] = "20200216T" + section.end.strftime("%H%M%S")
+            # TODO: deal with the extra backslash
             e['rrule'] = "FREQ=WEEKLY;WKST=SU;UNTIL=20200513T035959Z;BYDAY=MO,WE"
             e['location'] = section.room.getAddress()
             e['description'] = section.room.buildingName + section.room.room
