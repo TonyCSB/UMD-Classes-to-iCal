@@ -27,6 +27,17 @@ def generateCal(courseList):
     with open('test.ics', 'wb') as ics_file:
         ics_file.write(cal.to_ical())
 
+    # Read in the file
+    with open('test.ics', 'r') as file :
+        filedata = file.read()
+
+        # Replace the target string
+        filedata = filedata.replace('\;', ';')
+
+    # Write the file out again
+    with open('test.ics', 'w') as file:
+        file.write(filedata)
+
 def main():
     c = Course("CMSC132", "0101", "202001")
     generateCal([c])
