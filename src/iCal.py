@@ -71,6 +71,8 @@ def generateCal(courseList):
     with open(calendarName, 'wb') as ics_file:
         ics_file.write(cal.to_ical())
 
+    return open(calendarName)
+
 def main():
     c = Course("CMSC132", "0101", "202001")
     generateCal([c])

@@ -2,12 +2,15 @@
 from get_input import getInput
 from course import Course
 from iCal import generateCal
+import os
 
 def main():
     courseList = getInput()
     print("\n\nCourse input successfully, generating iCal file now...")
-    generateCal(courseList)
+    calendar = generateCal(courseList)
     print("\niCal file generated, please import it into Calendar of your choice!")
+
+    os.system("start " + calendar)
     input("Press <ENTER> to quit.")
 
 if __name__ == "__main__":
