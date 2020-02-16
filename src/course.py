@@ -9,10 +9,24 @@ class Course:
     # to create the object, use Course(courseId, sectionId, termId)
     def __init__(self, courseId: str, sectionId: str, termId: str):
         url = getUrl(courseId, sectionId, termId)
+
+        self.courseId = courseId
+        self.sectionId = sectionId
+        self.termId = termId
+
         page = requests.get(url)
 
+        if page.status_code != 200:
+            raise ValueError("Unknown Error - Website Out of Reach")
+
+        soup = BeautifulSoup(page.text, features = 'html.parser')
+
+        sectionInfo = soup.find('div', {'class':'class-days-container'})
+        if sectionInfo == None:
+            raise ValueError("Error - Course/Section doesn't exist")
+
     def __str__(self):
-        print()
+        return "Course Id: {0}\nSection Id: {1}\nTerm Id: {2}\n".format(self.courseId, self.sectionId, self.termId)
 
     def __repr__(self):
         return str(self)
@@ -20,6 +34,7 @@ class Course:
 def main():
     # For test purpose only
     c = Course("CMSC132", "0101", "202001")
+    c.courseId
     print(c)
 
 def getUrl(courseId, sectionId, termId):
