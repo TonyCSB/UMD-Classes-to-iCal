@@ -34,28 +34,20 @@ def generateCal(courseList):
                 e = Event()
                 e.add('summary', course.courseId)
 
-                startTime = datetime.datetime.combine(date[0], section.start)
+                firstDay = date[0]
                 if section.day[0] == Day.Tuesday:
-                    startTime += datetime.timedelta(days = 1)
+                    firstDay += datetime.timedelta(days = 1)
                 elif section.day[0] == Day.Wednesday:
-                    startTime += datetime.timedelta(days = 2)
+                    firstDay += datetime.timedelta(days = 2)
                 elif section.day[0] == Day.Thursday:
-                    startTime += datetime.timedelta(days = 3)
+                    firstDay += datetime.timedelta(days = 3)
                 elif section.day[0] == Day.Friday:
-                    startTime += datetime.timedelta(days = 4)
+                    firstDay += datetime.timedelta(days = 4)
 
+                startTime = datetime.datetime.combine(firstDay, section.start)
                 e.add('dtstart', startTime)
 
-                endTime = datetime.datetime.combine(date[0], section.end)
-                if section.day[0] == Day.Tuesday:
-                    endTime += datetime.timedelta(days = 1)
-                elif section.day[0] == Day.Wednesday:
-                    endTime += datetime.timedelta(days = 2)
-                elif section.day[0] == Day.Thursday:
-                    endTime += datetime.timedelta(days = 3)
-                elif section.day[0] == Day.Friday:
-                    endTime += datetime.timedelta(days = 4)
-
+                endTime = datetime.datetime.combine(firstDay, section.end)
                 e.add('dtend', endTime)
 
                 days = []
