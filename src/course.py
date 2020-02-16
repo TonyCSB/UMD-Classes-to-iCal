@@ -27,9 +27,14 @@ class Course:
             raise ValueError("Error - Course/Section doesn't exist")
 
         lecture = sectionInfo.find('div', {'class': 'row'})
-        lectureDays = lecture.find('span', {'class': 'section-days'}).string
-        lectureStart = lecture.find('span', {'class': 'class-start-time'}).string
-        lectureEnd = lecture.find('span', {'class': 'class-end-time'}).string
+        days = lecture.find('span', {'class': 'section-days'}).string
+        start = lecture.find('span', {'class': 'class-start-time'}).string
+        end = lecture.find('span', {'class': 'class-end-time'}).string
+        building = lecture.find('span', {'class': 'building-code'}).string
+        room = lecture.find('span', {'class': 'class-room'}).string
+
+        lecture = Section(days, start, end, building, room, True)
+        print(lecture)
 
     def __str__(self):
         return "Course Id: {0}\nSection Id: {1}\nTerm Id: {2}\n".format(self.courseId, self.sectionId, self.termId)

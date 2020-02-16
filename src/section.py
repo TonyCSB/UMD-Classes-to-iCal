@@ -5,11 +5,11 @@ class Section:
 
     # Initializer
     # to create the object, use Section(day, start, end, room, isLecture)
-    def __init__(self, day:str, start, end, room: Building, isLecture: bool):
+    def __init__(self, day: str, start, end, building: Building, room: str, isLecture: bool):
         self.day = day
         self.start = start
         self.end = end
-        self.room = room
+        self.room = building + room
         self.isLecture = isLecture
         print("hi")
 
