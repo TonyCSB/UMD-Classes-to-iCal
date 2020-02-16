@@ -21,9 +21,14 @@ class Course:
 
         soup = BeautifulSoup(page.text, features = 'html.parser')
 
-        sectionInfo = soup.find('div', {'class':'class-days-container'})
+        sectionInfo = soup.find('div', {'class': 'class-days-container'})
         if sectionInfo == None:
             raise ValueError("Error - Course/Section doesn't exist")
+
+        lecture = sectionInfo.find('div', {'class': 'row'})
+        lectureDays = lecture.find('span', {'class': 'section-days'}).string
+        lectureStart = lecture.find('span', {'class': 'class-start-time'}).string
+        lectureEnd = lecture.find('span', {'class': 'class-end-time'}).string
 
     def __str__(self):
         return "Course Id: {0}\nSection Id: {1}\nTerm Id: {2}\n".format(self.courseId, self.sectionId, self.termId)
