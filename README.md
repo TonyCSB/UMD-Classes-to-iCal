@@ -20,3 +20,19 @@ The program outputs a file `course_schedule.ics` which can then be imported into
 3. `pip3 install -r requirements.txt`
 4. `pyinstaller src/main.py --noconfirm --onefile`
 5. The executable file `main.exe` will be located at `dist` folder.
+
+### Input Format
+#### Term ID
+In the form of `YYYYMM`, such as `202001`.
+- 01 for Spring
+- 05 for Summer
+- 08 for Fall
+- 12 for Winter
+
+#### Course ID
+Must contains the four letter department code and three digit course code. (Optional: Include the section id at the end) For example: `CMSC132`, `CMSC 132`, `CMSC132-0101`, `CMSC132 0101`.
+
+#### Section ID
+Must be in the format of four digit code. Such as `0101`.
+
+
