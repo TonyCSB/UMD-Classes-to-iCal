@@ -4,7 +4,7 @@ from icalendar import Calendar, Event
 from course import Course
 from section import Section
 from room import Building
-import datetime
+import datetime, re
 
 def generateCal(courseList):
     cal = Calendar()
@@ -30,9 +30,9 @@ def generateCal(courseList):
 
             des = section.room.building + " " + section.room.room
             des += "\nSection: " + course.sectionId
-            des += "\n" + "Lecture" if section.isLecture else "Discussion"
+            des += "\n" + ("Lecture" if section.isLecture else "Discussion")
             e['description'] = des
-            
+
             cal.add_component(e)
     
     with open('test.ics', 'wb') as ics_file:
@@ -42,8 +42,8 @@ def generateCal(courseList):
     with open('test.ics', 'r') as file :
         filedata = file.read()
 
-        # Replace the target string
-        filedata = filedata.replace('\\', '')
+    # Replace the target string
+    filedata = re.sub(r"\/(\W)", r"\1", filedata)
 
     # Write the file out again
     with open('test.ics', 'w') as file:
