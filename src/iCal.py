@@ -27,7 +27,7 @@ def generateCal(courseList):
     elif semester == "08":
         breaks.main(int(year))
         dates = breaks.fall
-        
+    print(dates)
     for course in courseList:
         for section in course.sectionList:
             for date in dates:
