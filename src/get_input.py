@@ -4,13 +4,13 @@ from course import Course
 
 def getInput():
     termId = input("Enter the term ID: ")
-    courseInput = input("Enter a course: ")
+    courseInput = input("Enter a course (Press <ENTER> to break): ")
     
     courseList = []
 
     while courseInput != "":
         courseList.append(createCourse(courseInput, termId))
-        courseInput = input("Enter a course: ")
+        courseInput = input("Enter a course (Press <ENTER> to break): ")
 
     return courseList
 
