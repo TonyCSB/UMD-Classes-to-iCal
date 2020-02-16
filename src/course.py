@@ -2,6 +2,7 @@
 
 import requests
 from bs4 import BeautifulSoup
+from section import Section
 
 class Course:
 
