@@ -15,35 +15,34 @@ def generateCal(courseList):
 
     for course in courseList:
         for section in course.sectionList:
-            e = Event()
-            e.add('summary', course.courseId)
+            dates = [[datetime.date(2020,2,16), datetime.date(2020,3,15)]]
+            for date in dates:
+                e = Event()
+                e.add('summary', course.courseId)
 
-            startTime = datetime.datetime.combine(datetime.date(2020, 2, 16), section.start)
-            e.add('dtstart', startTime)
+                startTime = datetime.datetime.combine(date[0], section.start)
+                e.add('dtstart', startTime)
 
-            endTime = datetime.datetime.combine(datetime.date(2020,2,16), section.end)
-            e.add('dtend', endTime)
+                endTime = datetime.datetime.combine(date[0], section.end)
+                e.add('dtend', endTime)
 
-            # TODO: [exdate] for breaks
-            # TODO: finish repeat rules
+                days = []
+                for day in section.day:
+                    days.append(day.value)
 
-            days = []
-            for day in section.day:
-                days.append(day.value)
+                e.add('rrule', {'freq': 'weekly',
+                                'wkst': 'su',
+                                'until': datetime.datetime.combine(date[1], section.start),
+                                'byday': days})
 
-            e.add('rrule', {'freq': 'weekly',
-                            'wkst': 'su',
-                            'until': datetime.datetime(2020,5,20,0,0,0),
-                            'byday': days})
+                e.add('location', section.room.getAddress())
 
-            e.add('location', section.room.getAddress())
+                des = section.room.building + " " + section.room.room
+                des += "\nSection: " + course.sectionId
+                des += "\n" + ("Lecture" if section.isLecture else "Discussion")
+                e.add('description', des)
 
-            des = section.room.building + " " + section.room.room
-            des += "\nSection: " + course.sectionId
-            des += "\n" + ("Lecture" if section.isLecture else "Discussion")
-            e.add('description', des)
-
-            cal.add_component(e)
+                cal.add_component(e)
     
     with open(calendarName, 'wb') as ics_file:
         ics_file.write(cal.to_ical())
