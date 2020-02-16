@@ -20,7 +20,12 @@ def generateCal(courseList):
             e['dtend'] = "20200216T" + section.end.strftime("%H%M%S")
             # TODO: [exdate] for breaks
             # TODO: finish repeat rules
-            e['rrule'] = "FREQ=WEEKLY;WKST=SU;UNTIL=20200513T035959Z;BYDAY=MO,WE"
+
+            days = []
+            for day in section.day:
+                days.append(day.value)
+
+            e['rrule'] = "FREQ=WEEKLY;WKST=SU;UNTIL=20200513T035959Z;BYDAY=" + ",".join(days)
             e['location'] = section.room.getAddress()
             e['description'] = section.room.building + " " + section.room.room
             cal.add_component(e)
@@ -33,7 +38,7 @@ def generateCal(courseList):
         filedata = file.read()
 
         # Replace the target string
-        filedata = filedata.replace('\;', ';')
+        filedata = filedata.replace('\\', '')
 
     # Write the file out again
     with open('test.ics', 'w') as file:
