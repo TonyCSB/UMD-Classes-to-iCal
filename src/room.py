@@ -16,9 +16,9 @@ class Building:
         buildingId = idDict["features"][0]["attributes"]["BUILDINGID"]
         addressDict = requests.get("https://maps.umd.edu/arcgis/rest/services/Layers/CampusMapDefault/MapServer/9/query?f=json&where=BLDGNUM%20%3D%20%27" + buildingId + "%27&returnGeometry=false&outFields=BLDGNUM%2CNAME%2CSTREET%2CCITY%2CSTATE%2CZIP").json()
         self.buildingName = addressDict["features"][0]["attributes"]["NAME"]
-        self.buildingName.title()
+        self.buildingName = self.buildingName.title()
         self.address = addressDict["features"][0]["attributes"]["STREET"]
-        self.address.rstrip('.')
+        self.address = self.address.rstrip('.')
         self.city = addressDict["features"][0]["attributes"]["CITY"]
         self.state = addressDict["features"][0]["attributes"]["STATE"]
         self.zip = addressDict["features"][0]["attributes"]["ZIP"]
