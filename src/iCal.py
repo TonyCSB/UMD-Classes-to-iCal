@@ -10,5 +10,7 @@ def generateCal(courseList):
 
     for course in courseList:
         for section in course.sectionList:
-        e = Event()
-        e.name = 
+            e = Event()
+            e.name = course.courseId
+            e.begin = "1970-01-01 " + str(section.start)
+            e.end = "1970-01-01 " + str(section.end)
