@@ -50,7 +50,6 @@ class Course:
             else:
                 sectionList.append(Section(days, start, end, building, room, False))
         
-        print(sectionList)
         self.sectionList = sectionList
 
     def __str__(self):
