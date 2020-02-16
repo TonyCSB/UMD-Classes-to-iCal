@@ -5,9 +5,14 @@ from course import Course
 def main():
     termId = input("Enter the term ID: ")
     courseInput = input("Enter a course: ")
+    
+    courseList = []
+
     while courseInput != "":
-        createCourse(courseInput, termId)
+        courseList.append(createCourse(courseInput, termId))
         courseInput = input("Enter a course: ")
+
+    return courseList
 
 def createCourse(courseInput, termId):
     regex = r'^([a-zA-Z]{4})\W*(\d{3}[a-zA-Z]?)\W*(\d{4})?$'
