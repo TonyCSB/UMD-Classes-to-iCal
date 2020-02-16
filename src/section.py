@@ -27,7 +27,7 @@ class Section:
         print("hi")
 
     def __str__(self):
-        return "Section Days: {0}\nClass Start Time: {1}\nClass End Time: {2}\nRoom: {3}\nLecture: {4}".format(self.day, self.start, self.end, self.room, self.isLecture)
+        return "Section Days: {0}\nClass Start Time: {1}\nClass End Time: {2}\nRoom: \n\n{3}\n\n\nLecture: {4}".format(self.day, self.start, self.end, self.room, self.isLecture)
 
     def __repr__(self):
         return str(self)
