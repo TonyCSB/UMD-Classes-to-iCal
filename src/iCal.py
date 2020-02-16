@@ -37,8 +37,6 @@ def generateCal(courseList):
                 endTime = datetime.datetime.combine(date[0], section.end)
                 e.add('dtend', endTime)
 
-                e.add('exdate', datetime.datetime.combine(datetime.date(2020,2,19), section.start))
-
                 days = []
                 for day in section.day:
                     days.append(day.value)
