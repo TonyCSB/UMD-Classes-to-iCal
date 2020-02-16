@@ -75,7 +75,12 @@ def breaks(year):
     spring.append(springFirst)
     spring.append(springSecond)
 
+    print("breaks start")
+    print(spring)
+    print("breaks end")
+
 def main(year:int):
     breaks(year)
 
-main(2019)
+if __name__ == "__main__":
+    main(2019)
