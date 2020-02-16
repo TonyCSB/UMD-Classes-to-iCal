@@ -8,6 +8,7 @@ def main():
     print("\n\nCourse input successfully, generating iCal file now...")
     generateCal(courseList)
     print("\niCal file generated, please import it into Calendar of your choice!")
+    input("Press <ENTER> to quit.")
 
 if __name__ == "__main__":
     main()
