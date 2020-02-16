@@ -4,7 +4,7 @@ from course import Course
 def main():
     termId = input("Enter the term ID: ")
     courseInput = input("Enter a course: ")
-    while courseInput is not None:
+    while courseInput != "":
         createCourse(courseInput, termId)
         courseInput = input("Enter a course: ")
 
