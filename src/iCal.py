@@ -3,14 +3,31 @@
 from icalendar import Calendar, Event
 from course import Course
 from section import Section
+from room import Building
 import datetime
 
 def generateCal(courseList):
-    c = Calendar()
+    cal = Calendar()
+    cal.add('x-wr-calname', 'Class Schedule')
+    cal.add('tzid', 'America/New_York')
 
     for course in courseList:
         for section in course.sectionList:
             e = Event()
-            e.name = course.courseId
-            e.begin = "1970-01-01 " + str(section.start)
-            e.end = "1970-01-01 " + str(section.end)
+            e['summary']  = course.courseId
+            e['dtstart'] = "20200216T" + section.start.strftime("%H%M%S")
+            e['dtend'] = "20200216T" + section.end.strftime("%H%M%S")
+            e['rrule'] = "FREQ=WEEKLY;WKST=SU;UNTIL=20200513T035959Z;BYDAY=MO,WE"
+            e['location'] = section.building.getAddress()
+            e['description'] = section.building.buildingName + section.building.room
+            cal.add_component(e)
+    
+    with open('test.ics', 'wb') as ics_file:
+        ics_file.write(cal.to_ical())
+
+def main():
+    c = Course("CMSC132", "0101", "202001")
+    generateCal(c)
+
+if __name__ == "__main__":
+    main()
