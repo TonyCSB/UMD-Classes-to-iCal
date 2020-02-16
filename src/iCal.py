@@ -4,7 +4,7 @@ from icalendar import Calendar, Event
 from course import Course
 from section import Section
 from room import Building
-import datetime, re
+import datetime, re, breaks
 
 calendarName = "test.ics"
 
@@ -20,11 +20,13 @@ def generateCal(courseList):
     year = match.group(1)
     semester = match.group(2)
 
-    print(year, semester)
+    if semester == "01":
+        dates = breaks.spring
+    elif semester == "08":
+        dates = breaks.fall
 
     for course in courseList:
         for section in course.sectionList:
-            dates = [[datetime.date(2020,2,16), datetime.date(2020,3,15)]]
             for date in dates:
                 e = Event()
                 e.add('summary', course.courseId)
