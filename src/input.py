@@ -9,7 +9,7 @@ def main():
         courseInput = input("Enter a course: ")
 
 def createCourse(courseInput, termId):
-    regex = '^([a-zA-Z]{4})\W*(\d{3}[a-zA-Z]?)\W*(\d{4})?$'
+    regex = r'^([a-zA-Z]{4})\W*(\d{3}[a-zA-Z]?)\W*(\d{4})?$'
     match = re.search(regex, courseInput)
     courseId = match.group(1) + match.group(2)
     section = ""
@@ -21,4 +21,5 @@ def createCourse(courseInput, termId):
     print(course)
     return course
 
-main()
+if __name__ == "__main__":
+    main()
