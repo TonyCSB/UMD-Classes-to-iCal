@@ -10,6 +10,7 @@ def main():
     calendar = generateCal(courseList)
     print("\niCal file generated, please import it into Calendar of your choice!")
 
+    os.system("start " + calendar)
     input("Press <ENTER> to quit.")
 
 if __name__ == "__main__":
