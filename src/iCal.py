@@ -43,7 +43,8 @@ def generateCal(courseList):
         filedata = file.read()
 
     # Replace the target string
-    filedata = re.sub(r"\/(\W)", r"\1", filedata)
+    # TODO: replace '\,' '\;' but not '\n'
+    filedata = filedata.replace("\\", "")
 
     # Write the file out again
     with open('test.ics', 'w') as file:
