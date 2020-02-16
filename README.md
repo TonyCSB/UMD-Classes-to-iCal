@@ -16,7 +16,7 @@ The program outputs a file `course_schedule.ics` which can then be imported into
 
 ### How to Install
 1. Download the file as a zip file and extract the file.
-2. Open `cmd ` and `cd <current directory>`.
+2. Open `cmd` and `cd <current directory>`.
 3. `pip3 install -r requirements.txt`
 4. `pyinstaller src/main.py --noconfirm --onefile`
 5. The executable file `main.exe` will be located at `dist` folder.
