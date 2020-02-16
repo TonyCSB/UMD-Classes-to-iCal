@@ -21,7 +21,7 @@ def generateCal(courseList):
             # TODO: deal with the extra backslash
             e['rrule'] = "FREQ=WEEKLY;WKST=SU;UNTIL=20200513T035959Z;BYDAY=MO,WE"
             e['location'] = section.room.getAddress()
-            e['description'] = section.room.buildingName + section.room.room
+            e['description'] = section.room.building + " " + section.room.room
             cal.add_component(e)
     
     with open('test.ics', 'wb') as ics_file:
