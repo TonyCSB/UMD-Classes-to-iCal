@@ -21,8 +21,11 @@ def generateCal(courseList):
     semester = match.group(2)
 
     if semester == "01":
+        year = str(int(year) - 1)
+        breaks.main(year)
         dates = breaks.spring
     elif semester == "08":
+        breaks.main(year)
         dates = breaks.fall
 
     for course in courseList:
