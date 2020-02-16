@@ -13,6 +13,15 @@ def generateCal(courseList):
     cal.add('x-wr-calname', 'Class Schedule')
     cal.add('tzid', 'America/New_York')
 
+    termId = courseList[0].termId
+    regex = "^(\d{4})(\d{2})$"
+    match = re.search(regex, termId)
+    
+    year = match.group(1)
+    semester = match.group(2)
+
+    print(year, semester)
+
     for course in courseList:
         for section in course.sectionList:
             dates = [[datetime.date(2020,2,16), datetime.date(2020,3,15)]]
