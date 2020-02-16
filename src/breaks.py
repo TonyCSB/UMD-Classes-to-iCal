@@ -77,7 +77,5 @@ def breaks(year):
 
 def main(year:int):
     breaks(year)
-    print(fall)
-    print(spring)
 
 main(2019)

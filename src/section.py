@@ -47,7 +47,7 @@ def processDay(day:str):
     return dayList
 
 def processTime(time):
-    regex = "^(\d?\d):(\d{2})(am|pm)$"
+    regex = r"^(\d?\d):(\d{2})(am|pm)$"
     match = re.search(regex, time)
     
     hour = int(match.group(1))

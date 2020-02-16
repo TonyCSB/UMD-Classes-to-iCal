@@ -14,7 +14,7 @@ def generateCal(courseList):
     cal.add('tzid', 'America/New_York')
 
     termId = courseList[0].termId
-    regex = "^(\d{4})(\d{2})$"
+    regex = r"^(\d{4})(\d{2})$"
     match = re.search(regex, termId)
     
     year = match.group(1)
