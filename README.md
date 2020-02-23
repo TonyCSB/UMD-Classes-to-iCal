@@ -35,4 +35,7 @@ Must contains the four letter department code and three digit course code. (Opti
 #### Section ID
 Must be in the format of four digit code. Such as `0101`.
 
+### TODO
+- [ ] Scrap data from course schedule automatically
+
 
