@@ -20,6 +20,7 @@ def main():
             i -= 1
 
         print("\nBOOM!")
+        return False
 
     os.system("start " + cal)
 
@@ -39,6 +40,7 @@ def automatic():
     termid = input("Please input the term id to be imported (eg. 202001): ")
     print("Scraping your schedule data...")
 
+    print("Project under development...")
     return ""
 
 def manual():
