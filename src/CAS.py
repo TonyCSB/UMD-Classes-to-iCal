@@ -9,7 +9,7 @@ loginURL = "https://app.testudo.umd.edu/commonLogin/"
 postURL = "https://shib.idm.umd.edu/shibboleth-idp/profile/cas/login?execution=e1s1"
 authenURL = "https://shib.idm.umd.edu/shibboleth-idp/profile/cas/login?execution=e1s2"
 
-def login(username:str, password:str):
+def login(username:str, password:str, loginURL = loginURL):
     s = requests.Session()
     
     loginData = {   'j_username': username,

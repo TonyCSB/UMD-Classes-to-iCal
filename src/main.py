@@ -3,6 +3,7 @@ from get_input import getInput
 from course import Course
 from iCal import generateCal
 from CAS import login
+from scraper import scrape
 import os, time
 
 def main():
@@ -41,6 +42,7 @@ def automatic():
     print("Scraping your schedule data...")
 
     print("Project under development...")
+    data = scrape(termid)
     return ""
 
 def manual():
