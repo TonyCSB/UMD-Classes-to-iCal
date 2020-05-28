@@ -2,7 +2,7 @@
 import requests
 from cookie import loadCookie
 
-SCHEDULE_URL = "https://app.testudo.umd.edu/#/main/schedule?termId="
+SCHEDULE_URL = "https://app.testudo.umd.edu/services/schedule/"
 
 def scrape(termid:str):
   s = requests.Session()
