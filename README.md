@@ -26,7 +26,7 @@ In the form of `YYYYMM`, such as `202001`.
 Must contains the four letter department code and three digit course code. (Optional: Include the section id at the end) For example: `CMSC132`, `CMSC 132`, `CMSC132-0101`, `CMSC132 0101`.
 
 ### Section ID
-Must be in the format of four digit code. Such as `0101`.
+Must be in the format of four code. Such as `0101`.
 
 
 
