@@ -2,7 +2,6 @@
 import pickle, requests
 
 # This module is intend to save and load cookie after login
-
 def saveCookie(session:requests.session):
     with open('.cookie', 'wb') as f:
         pickle.dump(session.cookies, f)
