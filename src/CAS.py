@@ -82,7 +82,6 @@ def login(username:str, password:str, loginURL = loginURL):
                     
     r = s.post(url = authenURL, data = finalPayload)
 
-    #cookie.saveCookie(s)
     user.updateCookie(s.cookies)
 
     return True
