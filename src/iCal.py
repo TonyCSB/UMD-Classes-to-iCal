@@ -28,44 +28,45 @@ def generateCal(courseList):
         dates = breaks.fall
 
     for course in courseList:
-        for section in course.sectionList:
-            for date in dates:
-                e = Event()
-                e.add('summary', course.courseId)
+        if not course.online:
+            for section in course.sectionList:
+                for date in dates:
+                    e = Event()
+                    e.add('summary', course.courseId)
 
-                firstDay = date[0]
-                if section.day[0] == Day.Tuesday:
-                    firstDay += datetime.timedelta(days = 1)
-                elif section.day[0] == Day.Wednesday:
-                    firstDay += datetime.timedelta(days = 2)
-                elif section.day[0] == Day.Thursday:
-                    firstDay += datetime.timedelta(days = 3)
-                elif section.day[0] == Day.Friday:
-                    firstDay += datetime.timedelta(days = 4)
+                    firstDay = date[0]
+                    if section.day[0] == Day.Tuesday:
+                        firstDay += datetime.timedelta(days = 1)
+                    elif section.day[0] == Day.Wednesday:
+                        firstDay += datetime.timedelta(days = 2)
+                    elif section.day[0] == Day.Thursday:
+                        firstDay += datetime.timedelta(days = 3)
+                    elif section.day[0] == Day.Friday:
+                        firstDay += datetime.timedelta(days = 4)
 
-                startTime = datetime.datetime.combine(firstDay, section.start)
-                e.add('dtstart', startTime)
+                    startTime = datetime.datetime.combine(firstDay, section.start)
+                    e.add('dtstart', startTime)
 
-                endTime = datetime.datetime.combine(firstDay, section.end)
-                e.add('dtend', endTime)
+                    endTime = datetime.datetime.combine(firstDay, section.end)
+                    e.add('dtend', endTime)
 
-                days = []
-                for day in section.day:
-                    days.append(day.value)
+                    days = []
+                    for day in section.day:
+                        days.append(day.value)
 
-                e.add('rrule', {'freq': 'weekly',
-                                'wkst': 'su',
-                                'until': datetime.datetime.combine(date[1], section.start),
-                                'byday': days})
+                    e.add('rrule', {'freq': 'weekly',
+                                    'wkst': 'su',
+                                    'until': datetime.datetime.combine(date[1], section.start),
+                                    'byday': days})
 
-                e.add('location', section.room.getAddress())
+                    e.add('location', section.room.getAddress())
 
-                des = section.room.building + " " + section.room.room
-                des += "\nSection: " + course.sectionId
-                des += "\n" + ("Lecture" if section.isLecture else "Discussion")
-                e.add('description', des)
+                    des = section.room.building + " " + section.room.room
+                    des += "\nSection: " + course.sectionId
+                    des += "\n" + ("Lecture" if section.isLecture else "Discussion")
+                    e.add('description', des)
 
-                cal.add_component(e)
+                    cal.add_component(e)
     
     with open(calendarName, 'wb') as ics_file:
         ics_file.write(cal.to_ical())

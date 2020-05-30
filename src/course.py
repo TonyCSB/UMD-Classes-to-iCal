@@ -39,11 +39,16 @@ class Course:
 
         # process lecture and discussion sections for the course
         for section in sections:
-            days = section.find('span', {'class': 'section-days'}).string
-            start = section.find('span', {'class': 'class-start-time'}).string
-            end = section.find('span', {'class': 'class-end-time'}).string
-            building = section.find('span', {'class': 'building-code'}).string
-            room = section.find('span', {'class': 'class-room'}).string
+            try:
+                days = section.find('span', {'class': 'section-days'}).string
+                start = section.find('span', {'class': 'class-start-time'}).string
+                end = section.find('span', {'class': 'class-end-time'}).string
+                building = section.find('span', {'class': 'building-code'}).string
+                room = section.find('span', {'class': 'class-room'}).string
+                self.online = False
+            except AttributeError:
+                days, start, end, building, room = None, None, None, None, None
+                self.online = True
 
             if section.find('span', {'class': 'class-type'}) == None:
                 sectionList.append(Section(days, start, end, building, room, True))
