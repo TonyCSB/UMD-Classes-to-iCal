@@ -28,5 +28,8 @@ Must contains the four letter department code and three digit course code. (Opti
 ### Section ID
 Must be in the format of four code. Such as `0101`.
 
+## Disclaimer
 
+The password is not stored in plain text, and is used to authenticate with UMD CAS only. It is not backed up to any third-party server or storage.
 
+Any information generated through this program is saved locally only.
