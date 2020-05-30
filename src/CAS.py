@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import requests, sys, re, time, pickle
+import requests, sys, re, time, pickle, html
 from bs4 import BeautifulSoup
 from user import User
 
@@ -49,32 +49,36 @@ def login(user:User, username:str, password:str, loginURL = loginURL):
                 'is_cef_broswer': "false",
                 'is_ipad_os': "false"}
     r = s.post(url = duoURL, data = duoData)
-    match = re.search(r'^.*sid=(.*)$', r.url)
-    sid = (match.group(1))
+    if "Logging you in..." not in r.text:
+        match = re.search(r'^.*sid=(.*)$', r.url)
+        sid = (match.group(1))
 
-    print("A Duo Push has been sent to your primary device, please APPROVE the login request immediately!")
+        print("A Duo Push has been sent to your primary device, please APPROVE the login request immediately!")
 
-    duoPushData = { 'device': 'phone1',
-                    'factor': 'Duo Push',
-                    'dampen_choice': 'true',
-                    'out_of_date': 'False',
-                    'days_out_of_date': '0',
-                    'days_to_block': 'None'}
+        duoPushData = { 'device': 'phone1',
+                        'factor': 'Duo Push',
+                        'dampen_choice': 'true',
+                        'out_of_date': 'False',
+                        'days_out_of_date': '0',
+                        'days_to_block': 'None'}
 
-    r = s.post(url = r.url, data = duoPushData)
-    txid = r.json()['response']['txid']
+        r = s.post(url = r.url, data = duoPushData)
+        txid = r.json()['response']['txid']
     
-    duoStatusURL = "https://{0}/frame/status?sid={1}&txid={2}".format(host, sid, txid)
+        duoStatusURL = "https://{0}/frame/status?sid={1}&txid={2}".format(host, sid, txid)
 
-    r = s.post(url = duoStatusURL)
-
-    while r.json()['response']['status_code'] != 'allow':
-        time.sleep(1)
         r = s.post(url = duoStatusURL)
 
-    r = s.post("https://{0}/frame/status/{1}?sid={2}".format(host, txid, sid))
+        while r.json()['response']['status_code'] != 'allow':
+            time.sleep(1)
+            r = s.post(url = duoStatusURL)
 
-    auth = r.json()['response']['cookie'] + sig[100:]
+        r = s.post("https://{0}/frame/status/{1}?sid={2}".format(host, txid, sid))
+        auth = r.json()['response']['cookie'] + sig[100:]
+    else:
+        match = re.search(r'AUTH[^\"]*', r.text)
+        auth = html.unescape(match.group(0))
+
     
     finalPayload = {'_eventId': "proceed",
                     'sig_response': auth}

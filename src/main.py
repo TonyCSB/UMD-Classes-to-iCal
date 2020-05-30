@@ -11,9 +11,13 @@ def main():
     reply = input("Would you like to enter the course (M)anually or import from your schedule (A)utomatically? (M/A) ").lower().strip()
 
     if reply[0] == 'm':
-        cal = manual()
+        courseList = manual()
+        print("\n\nCourse input successfully, generating iCal file now...")
     elif reply[0] == 'a':
-        cal = automatic()
+        courseList = automatic()
+        if courseList == None:
+            return False
+        print("\n\nCourse scraped successfully, generating iCal file now...")
     else:
         i = 5
         while i >= 0:
@@ -24,7 +28,10 @@ def main():
         print("\nBOOM!")
         return False
 
-    os.system("start " + cal)
+    calendar = generateCal(courseList)
+    print("\niCal file generated, please import it into Calendar of your choice!")
+
+    os.system("start " + calendar)
 
     while input("Press <ENTER> to quit.") != "":
         pass
@@ -42,18 +49,12 @@ def automatic():
     print("Login successfully.")
     termid = input("Please input the term id to be imported (eg. 202001): ")
     print("Scraping your schedule data...")
-
-    print("Project under development...")
+    
     data = scrape(user, termid)
-    return ""
+    return data
 
 def manual():
-    courseList = getInput()
-    print("\n\nCourse input successfully, generating iCal file now...")
-    calendar = generateCal(courseList)
-    print("\niCal file generated, please import it into Calendar of your choice!")
-
-    return calendar
+    return getInput()
 
 if __name__ == "__main__":
     main()
