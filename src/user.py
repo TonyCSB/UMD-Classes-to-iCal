@@ -2,6 +2,8 @@
 import pickle, bcrypt, os
 
 DIR = os.path.join(os.getcwd(), "data")
+if not os.path.isdir(DIR):
+  os.makedirs(DIR)
 
 class User:
 
