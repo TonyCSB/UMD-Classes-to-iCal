@@ -15,7 +15,7 @@ def getInput():
     return courseList
 
 def createCourse(courseInput, termId):
-    regex = r'^([a-zA-Z]{4})\W*(\d{3}[a-zA-Z]?)\W*(\d{4})?$'
+    regex = r'^([a-zA-Z]{4})\W*(\d{3}[a-zA-Z]?)\W*(\w{4})?$'
     match = re.search(regex, courseInput)
     courseId = (match.group(1) + match.group(2)).upper()
     section = ""
