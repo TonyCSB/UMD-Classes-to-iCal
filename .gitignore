@@ -107,6 +107,6 @@ venv.bak/
 test.sh 
 input.txt
 
-.cookie
+*.cookie
 *.ics
 *.html
