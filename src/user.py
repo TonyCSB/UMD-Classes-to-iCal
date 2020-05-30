@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import pickle, bcrypt, os
+from requests import session
 
 DIR = os.path.join(os.getcwd(), "data")
 if not os.path.isdir(DIR):
@@ -23,7 +24,7 @@ class User:
     finally:
       self.username = username
 
-  def updateCookie(self, cookie):
+  def updateCookie(self, cookie: session):
     self.cookie = cookie
 
   def saveUser(self):
