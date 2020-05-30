@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-import requests, sys, re, time, pickle, cookie
+import requests, sys, re, time, pickle
 from bs4 import BeautifulSoup
+from user import User
 
 # This module is intend to login in the UMD Central Authentication System.
 # Perform the DUO Security push, and then store the cookies for other module.
@@ -11,6 +12,12 @@ authenURL = "https://shib.idm.umd.edu/shibboleth-idp/profile/cas/login?execution
 
 def login(username:str, password:str, loginURL = loginURL):
     s = requests.Session()
+    user = User(username, password)
+    if user.cookie != None:
+        s.cookies.update(user.cookie)
+
+    if s.get(url = loginURL).url == loginURL:
+        return True
     
     loginData = {   'j_username': username,
                     'j_password': password,
@@ -75,7 +82,8 @@ def login(username:str, password:str, loginURL = loginURL):
                     
     r = s.post(url = authenURL, data = finalPayload)
 
-    cookie.saveCookie(s)
+    #cookie.saveCookie(s)
+    user.updateCookie(s.cookies)
 
     return True
 
