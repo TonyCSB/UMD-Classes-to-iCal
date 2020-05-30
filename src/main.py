@@ -12,13 +12,13 @@ def main():
 
     if reply[0] == 'm':
         courseList = manual()
-        print("\n\nCourse input successfully, generating iCal file now...")
+        print("Course input successfully, generating iCal file now...")
     elif reply[0] == 'a':
         courseList = automatic()
         if courseList == None:
             while input("Press <ENTER> to quit.") != "":
                 return False
-        print("\n\nCourse scraped successfully, generating iCal file now...")
+        print("Course scraped successfully, generating iCal file now...")
     else:
         i = 5
         while i >= 0:

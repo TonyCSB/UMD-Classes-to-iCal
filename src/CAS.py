@@ -16,6 +16,7 @@ def login(user:User, username:str, password:str, loginURL = loginURL):
         s.cookies.update(user.cookie)
 
     if s.get(url = loginURL).url == loginURL:
+        user.updateCookie(s.cookies)
         return user
     
     loginData = {   'j_username': username,
@@ -77,7 +78,7 @@ def login(user:User, username:str, password:str, loginURL = loginURL):
         auth = r.json()['response']['cookie'] + sig[100:]
     else:
         match = re.search(r'AUTH[^\"]*', r.text)
-        auth = html.unescape(match.group(0))
+        auth = html.unescape(match.group(0)) + sig[100:]
 
     
     finalPayload = {'_eventId': "proceed",

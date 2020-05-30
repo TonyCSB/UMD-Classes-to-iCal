@@ -4,13 +4,13 @@ from enum import Enum
 import datetime, re
 
 class Day(Enum):
-    Sunday = "SU"
-    Monday = "MO"
-    Tuesday = "TU"
-    Wednesday = "WE"
-    Thursday = "TH"
-    Friday = "FR"
-    Saturday = "SA"
+    Monday = 0, "MO"
+    Tuesday = 1, "TU"
+    Wednesday = 2, "WE"
+    Thursday = 3, "TH"
+    Friday = 4, "FR"
+    Saturday = 5, "SA"
+    Sunday = 6, "SU"
 
 class Section:
 

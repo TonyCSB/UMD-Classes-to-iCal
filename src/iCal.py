@@ -3,7 +3,8 @@ from icalendar import Calendar, Event
 from course import Course
 from section import Section, Day
 from room import Building
-import datetime, re, breaks
+from breaks import breaks, fall, spring
+import datetime, re
 
 calendarName = "course_schedule.ics"
 
@@ -21,11 +22,11 @@ def generateCal(courseList):
 
     if semester == "01":
         year = int(year) - 1
-        breaks.main(year)
-        dates = breaks.spring
+        breaks(year)
+        dates = spring
     elif semester == "08":
-        breaks.main(int(year))
-        dates = breaks.fall
+        breaks(int(year))
+        dates = fall
 
     for course in courseList:
         if not course.online:
@@ -35,14 +36,14 @@ def generateCal(courseList):
                     e.add('summary', course.courseId)
 
                     firstDay = date[0]
-                    if section.day[0] == Day.Tuesday:
-                        firstDay += datetime.timedelta(days = 1)
-                    elif section.day[0] == Day.Wednesday:
-                        firstDay += datetime.timedelta(days = 2)
-                    elif section.day[0] == Day.Thursday:
-                        firstDay += datetime.timedelta(days = 3)
-                    elif section.day[0] == Day.Friday:
-                        firstDay += datetime.timedelta(days = 4)
+                    matched = False
+                    while not matched:
+                        for d in section.day:
+                            if firstDay.weekday() == d.value[0]:
+                                matched = True
+                                break
+                        if not matched:
+                            firstDay += datetime.timedelta(days = 1)
 
                     startTime = datetime.datetime.combine(firstDay, section.start)
                     e.add('dtstart', startTime)
@@ -52,7 +53,7 @@ def generateCal(courseList):
 
                     days = []
                     for day in section.day:
-                        days.append(day.value)
+                        days.append(day.value[1])
 
                     e.add('rrule', {'freq': 'weekly',
                                     'wkst': 'su',
