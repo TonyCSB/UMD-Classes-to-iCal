@@ -16,7 +16,8 @@ def main():
     elif reply[0] == 'a':
         courseList = automatic()
         if courseList == None:
-            return False
+            while input("Press <ENTER> to quit.") != "":
+                return False
         print("\n\nCourse scraped successfully, generating iCal file now...")
     else:
         i = 5
@@ -49,7 +50,7 @@ def automatic():
     print("Login successfully.")
     termid = input("Please input the term id to be imported (eg. 202001): ")
     print("Scraping your schedule data...")
-    
+
     data = scrape(user, termid)
     return data
 
