@@ -10,14 +10,13 @@ loginURL = "https://app.testudo.umd.edu/commonLogin/"
 postURL = "https://shib.idm.umd.edu/shibboleth-idp/profile/cas/login?execution=e1s1"
 authenURL = "https://shib.idm.umd.edu/shibboleth-idp/profile/cas/login?execution=e1s2"
 
-def login(username:str, password:str, loginURL = loginURL):
+def login(user:User, username:str, password:str, loginURL = loginURL):
     s = requests.Session()
-    user = User(username, password)
     if user.cookie != None:
         s.cookies.update(user.cookie)
 
     if s.get(url = loginURL).url == loginURL:
-        return True
+        return user
     
     loginData = {   'j_username': username,
                     'j_password': password,
@@ -84,11 +83,11 @@ def login(username:str, password:str, loginURL = loginURL):
 
     user.updateCookie(s.cookies)
 
-    return True
+    return user
 
 def main():
     if len(sys.argv) == 3:
-        login(sys.argv[1], sys.argv[2])
+        login(User(sys.argv[1], sys.argv[2]), sys.argv[1], sys.argv[2])
     else:
         raise ValueError("Not enough/Too much input!")
 

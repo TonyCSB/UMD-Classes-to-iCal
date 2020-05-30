@@ -4,6 +4,7 @@ from course import Course
 from iCal import generateCal
 from CAS import login
 from scraper import scrape
+from user import User
 import os, time
 
 def main():
@@ -31,9 +32,10 @@ def main():
 def automatic():
     username = input("Please input your username: ").strip()
     password = input("Please input your password: ").strip()
+    user = User(username, password)
 
     try:
-        login(username, password)
+        user = login(user, username, password)
     except ValueError as e:
         print(e)
     
@@ -42,7 +44,7 @@ def automatic():
     print("Scraping your schedule data...")
 
     print("Project under development...")
-    data = scrape(termid)
+    data = scrape(user, termid)
     return ""
 
 def manual():
