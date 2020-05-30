@@ -4,6 +4,7 @@ This program reads in courses that the user inputs (course and section number) p
 
 Features:
 
+* Course data can be imported through your login info directly NOW
 * All courses can be added and imported into other programs at once.
 * Lecture and discussion sections are listed separately.
 * Each class event includes a location (building name, room number, and full address) that is viewable within the user's calendar application.
@@ -34,8 +35,5 @@ Must contains the four letter department code and three digit course code. (Opti
 ### Section ID
 Must be in the format of four digit code. Such as `0101`.
 
-## TODO
-- [ ] Scrap data from course schedule automatically
-- [ ] Implement individual cookie sessions
 
 
