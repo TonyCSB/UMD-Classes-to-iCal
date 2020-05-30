@@ -4,6 +4,7 @@ from requests import session
 
 DIR = os.path.join(os.getcwd(), "data")
 if not os.path.isdir(DIR):
+  print("Creating data directory")
   os.makedirs(DIR)
 
 class User:
