@@ -3,6 +3,7 @@ from room import Building
 from enum import Enum
 import datetime, re
 
+
 class Day(Enum):
     Monday = 0, "MO"
     Tuesday = 1, "TU"
@@ -12,6 +13,7 @@ class Day(Enum):
     Saturday = 5, "SA"
     Sunday = 6, "SU"
 
+
 class Section:
 
     # Initializer
@@ -19,7 +21,7 @@ class Section:
     def __init__(self, day: str, start: str, end: str, building: str, room: str, isLecture: bool):
 
         # initialize the values
-        if day != None:
+        if day is not None:
             self.day = processDay(day)
             self.start = processTime(start)
             self.end = processTime(end)
@@ -36,7 +38,8 @@ class Section:
     def __repr__(self):
         return str(self)
 
-def processDay(day:str):
+
+def processDay(day: str):
     dayList = []
     if "M" in day:
         dayList.append(Day.Monday)
@@ -51,10 +54,11 @@ def processDay(day:str):
 
     return dayList
 
+
 def processTime(time):
     regex = r"^(\d?\d):(\d{2})(am|pm)$"
     match = re.search(regex, time)
-    
+
     hour = int(match.group(1))
     minute = int(match.group(2))
 

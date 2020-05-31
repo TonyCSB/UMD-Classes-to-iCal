@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 from icalendar import Calendar, Event
 from course import Course
-from section import Section, Day
-from room import Building
 from breaks import breaks, fall, spring
 import datetime, re
 
 calendarName = "course_schedule.ics"
+
 
 def generateCal(courseList):
     cal = Calendar()
@@ -16,7 +15,7 @@ def generateCal(courseList):
     termId = courseList[0].termId
     regex = r"^(\d{4})(\d{2})$"
     match = re.search(regex, termId)
-    
+
     year = match.group(1)
     semester = match.group(2)
 
@@ -43,7 +42,7 @@ def generateCal(courseList):
                                 matched = True
                                 break
                         if not matched:
-                            firstDay += datetime.timedelta(days = 1)
+                            firstDay += datetime.timedelta(days=1)
 
                     startTime = datetime.datetime.combine(firstDay, section.start)
                     e.add('dtstart', startTime)
@@ -68,15 +67,17 @@ def generateCal(courseList):
                     e.add('description', des)
 
                     cal.add_component(e)
-    
+
     with open(calendarName, 'wb') as ics_file:
         ics_file.write(cal.to_ical())
 
     return calendarName
 
+
 def main():
     c = Course("CMSC132", "0101", "202001")
     generateCal([c])
+
 
 if __name__ == "__main__":
     main()

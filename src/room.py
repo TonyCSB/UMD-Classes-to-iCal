@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import requests
 
+
 class Building:
 
     def __init__(self, building: str, room: str):
@@ -11,7 +12,7 @@ class Building:
         self.city = ""
         self.state = ""
         self.zip = 0
-        
+
         idDict = requests.get("https://maps.umd.edu/arcgis/rest/services/Layers/CampusMapDefault/MapServer/0/query?f=json&where=UPPER(NAME)%20like%20%27%25" + building + "%25%27%20OR%20BUILDINGID%20like%20%27%25" + building + "%25%27%20OR%20UPPER(BLDG_CODE)%20like%20%27%25" + building + "%25%27&outFields=BUILDINGID").json()
         buildingId = idDict["features"][0]["attributes"]["BUILDINGID"]
         addressDict = requests.get("https://maps.umd.edu/arcgis/rest/services/Layers/CampusMapDefault/MapServer/9/query?f=json&where=BLDGNUM%20%3D%20%27" + buildingId + "%27&returnGeometry=false&outFields=BLDGNUM%2CNAME%2CSTREET%2CCITY%2CSTATE%2CZIP").json()
@@ -28,13 +29,15 @@ class Building:
 
     def __str__(self):
         return "Building Code: {0}\nRoom Number: {1}\nBuilding Name: {2}\nAddress: {3}\nCity: {4}\nState: {5}\nZip: {6}".format(self.building, self.room, self.buildingName, self.address, self.city, self.state, self.zip)
-    
+
     def __repr__(self):
         return str(self)
+
 
 def main():
     test = Building("IRB", "0101")
     print(test)
+
 
 if __name__ == "__main__":
     main()

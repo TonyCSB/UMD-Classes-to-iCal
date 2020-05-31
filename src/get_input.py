@@ -2,10 +2,11 @@
 import re
 from course import Course
 
+
 def getInput():
     termId = input("Enter the term ID: ")
     courseInput = input("Enter a course (Press <ENTER> to break): ")
-    
+
     courseList = []
 
     while courseInput != "":
@@ -13,6 +14,7 @@ def getInput():
         courseInput = input("Enter a course (Press <ENTER> to break): ")
 
     return courseList
+
 
 def createCourse(courseInput, termId):
     regex = r'^([a-zA-Z]{4})\W*(\d{3}[a-zA-Z]?)\W*(\w{4})?$'
@@ -24,10 +26,11 @@ def createCourse(courseInput, termId):
     else:
         section = match.group(3)
     course = Course(courseId, section, termId)
-    
+
     print()
     print(course)
     return course
+
 
 if __name__ == "__main__":
     getInput()

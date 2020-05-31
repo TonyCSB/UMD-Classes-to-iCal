@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 fall = []
 spring = []
 
+
 def breaks(year):
     url = ""
     if year == 2019:
@@ -23,7 +24,7 @@ def breaks(year):
         raise ValueError("Unknown Error - Website Out of Reach")
 
     # parse the website with BeautifulSoup
-    soup = BeautifulSoup(page.text, features = 'html.parser')
+    soup = BeautifulSoup(page.text, features='html.parser')
     tableResults = soup.findAll('td', {'class': 'views-field views-field-field-description'})
 
     firstDaySeen = False
@@ -39,7 +40,7 @@ def breaks(year):
         result = element.find_next('td').get_text().strip()
         result = result.replace(")", ") ")
         result = result.strip().split()
-        result[:] = [word for word in result if not ")" in word]
+        result[:] = [word for word in result if ")" not in word]
 
         result[1] = re.sub('[A-Za-z]', '', result[1])
         if len(result[1]) == 1:
@@ -53,19 +54,19 @@ def breaks(year):
             firstDaySeen = True
             fallFirst.append(datetime.strptime((" ".join(result) + " " + str(year)), '%B %d %Y'))
         elif element.get_text().strip() == "Labor Day":
-            fallFirst.append(datetime.strptime((" ".join(result) + " " + str(year)), '%B %d %Y') - timedelta(days = 1))
-            fallSecond.append(fallFirst[1] + timedelta(days = 2))
+            fallFirst.append(datetime.strptime((" ".join(result) + " " + str(year)), '%B %d %Y') - timedelta(days=1))
+            fallSecond.append(fallFirst[1] + timedelta(days=2))
         elif element.get_text().strip() == "Thanksgiving Recess":
-            fallSecond.append(datetime.strptime((result[0] + " " + result[1] + " " + str(year)), '%B %d %Y') - timedelta(days = 1))
-            fallThird.append(datetime.strptime((result[2] + " " + result[3] + " " + str(year)), '%B %d %Y') + timedelta(days = 1))
+            fallSecond.append(datetime.strptime((result[0] + " " + result[1] + " " + str(year)), '%B %d %Y') - timedelta(days=1))
+            fallThird.append(datetime.strptime((result[2] + " " + result[3] + " " + str(year)), '%B %d %Y') + timedelta(days=1))
         elif element.get_text().strip() == "Last Day of Classes" and not lastDaySeen:
             lastDaySeen = True
             fallThird.append(datetime.strptime((" ".join(result) + " " + str(year)), '%B %d %Y'))
         elif "First Day" in element.get_text().strip() and firstDaySeen:
             springFirst.append(datetime.strptime((" ".join(result) + " " + str(year + 1)), '%B %d %Y'))
         elif element.get_text().strip() == "Spring Break":
-            springFirst.append(datetime.strptime((result[0] + " " + result[1] + " " + str(year + 1)), '%B %d %Y') - timedelta(days = 1))
-            springSecond.append(datetime.strptime((result[2] + " " + result[3] + " " + str(year + 1)), '%B %d %Y') + timedelta(days = 1))
+            springFirst.append(datetime.strptime((result[0] + " " + result[1] + " " + str(year + 1)), '%B %d %Y') - timedelta(days=1))
+            springSecond.append(datetime.strptime((result[2] + " " + result[3] + " " + str(year + 1)), '%B %d %Y') + timedelta(days=1))
         elif element.get_text().strip() == "Last Day of Classes" and lastDaySeen:
             springSecond.append(datetime.strptime((" ".join(result) + " " + str(year + 1)), '%B %d %Y'))
 
@@ -75,8 +76,10 @@ def breaks(year):
     spring.append(springFirst)
     spring.append(springSecond)
 
-def main(year:int):
+
+def main(year: int):
     breaks(year)
+
 
 if __name__ == "__main__":
     main(2019)

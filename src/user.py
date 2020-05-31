@@ -7,6 +7,7 @@ if not os.path.isdir(DIR):
     print("Creating data directory")
     os.makedirs(DIR)
 
+
 class User:
 
     def __init__(self, username: str, password: str):
@@ -47,10 +48,12 @@ class User:
     def __repr__(self):
         return str(self)
 
+
 def test():
     user = User("abc", "qwer")
     print(user)
     user.saveUser()
+
 
 if __name__ == "__main__":
     test()

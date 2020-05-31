@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-
 import requests
 from bs4 import BeautifulSoup
 from section import Section
+
 
 class Course:
 
@@ -24,13 +24,13 @@ class Course:
             raise ValueError("Unknown Error - Website Out of Reach")
 
         # parse the website with BeautifulSoup
-        soup = BeautifulSoup(page.text, features = 'html.parser')
+        soup = BeautifulSoup(page.text, features='html.parser')
 
         # locate the part with section infomation
         sectionInfo = soup.find('div', {'class': 'class-days-container'})
 
         # check if the section/course exists
-        if sectionInfo == None:
+        if sectionInfo is None:
             raise ValueError("Error - Course/Section doesn't exist")
 
         # get info for detailed courses
@@ -50,11 +50,11 @@ class Course:
                 days, start, end, building, room = None, None, None, None, None
                 self.online = True
 
-            if section.find('span', {'class': 'class-type'}) == None:
+            if section.find('span', {'class': 'class-type'}) is None:
                 sectionList.append(Section(days, start, end, building, room, True))
             else:
                 sectionList.append(Section(days, start, end, building, room, False))
-        
+
         self.sectionList = sectionList
 
     def __str__(self):
@@ -63,14 +63,17 @@ class Course:
     def __repr__(self):
         return str(self)
 
+
 def main():
     # For test purpose only
     c = Course("CMSC132", "0101", "202001")
     print(c.courseId)
     print(c)
 
+
 def getUrl(courseId, sectionId, termId):
     return "https://app.testudo.umd.edu/soc/search?courseId={0}&sectionId={1}&termId={2}&_openSectionsOnly=on&creditCompare=&credits=&courseLevelFilter=ALL&instructor=&_facetoface=on&_blended=on&_online=on&courseStartCompare=&courseStartHour=&courseStartMin=&courseStartAM=&courseEndHour=&courseEndMin=&courseEndAM=&teachingCenter=ALL&_classDay1=on&_classDay2=on&_classDay3=on&_classDay4=on&_classDay5=on".format(courseId, sectionId, termId)
+
 
 if __name__ == "__main__":
     main()
