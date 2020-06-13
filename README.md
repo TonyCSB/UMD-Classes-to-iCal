@@ -2,7 +2,7 @@
 
 This program reads in courses that the user inputs (course and section number) per semester and outputs them into a standardized iCal format that can be imported into popular calendar applications including Google Calendar.
 
-Features:
+## Features:
 
 * Course data can be imported through your login info directly NOW
 * All courses can be added and imported into other programs at once.
