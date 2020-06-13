@@ -23,6 +23,7 @@ def scrape(user: User, termid: str):
         s = data["courseMap"][c]["sectionId"]
         t = data["courseMap"][c]["termId"]
         c = data["courseMap"][c]["courseCode"]
+        print("Collecting info for Section {0} of {1}".format(s, c["code"]))
         courseList.append(Course(c["code"], s, t))
 
     return courseList
