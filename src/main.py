@@ -4,6 +4,7 @@ from iCal import generateCal
 from CAS import login
 from scraper import scrape
 from user import User
+from getpass import getpass
 import os, time
 
 
@@ -40,7 +41,7 @@ def main():
 
 def automatic():
     username = input("Please input your username: ").strip()
-    password = input("Please input your password: ").strip()
+    password = getpass("Please input your password: ").strip()
     user = User(username, password)
 
     try:
