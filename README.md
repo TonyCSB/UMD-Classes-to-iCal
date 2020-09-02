@@ -15,6 +15,11 @@ To generate an iCal file, the program will prompt the user for a course to enter
 The program outputs a file `course_schedule.ics` which can then be imported into any calendar program that supports importing from iCal files.
 
 ## Input Format
+
+### Automatic Scraper (with support for cli input)
+
+Try `src/main.py <username> <password> <termid>` for commandline argument input
+
 ### Term ID
 In the form of `YYYYMM`, such as `202001`.
 - 01 for Spring

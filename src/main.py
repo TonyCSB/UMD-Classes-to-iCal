@@ -5,7 +5,7 @@ from CAS import login
 from scraper import scrape
 from user import User
 from getpass import getpass
-import os, time
+import os, time, sys
 
 
 def main():
@@ -39,9 +39,11 @@ def main():
         pass
 
 
-def automatic():
-    username = input("Please input your username: ").strip()
-    password = getpass("Please input your password: ").strip()
+def automatic(username=None, password=None, termid=None):
+    if username is None or password is None:
+        username = input("Please input your username: ").strip()
+        password = getpass("Please input your password: ").strip()
+
     user = User(username, password)
 
     try:
@@ -50,7 +52,8 @@ def automatic():
         print(e)
 
     print("Login successfully.")
-    termid = input("Please input the term id to be imported (eg. 202001): ")
+    if termid is None:
+        termid = input("Please input the term id to be imported (eg. 202001): ")
     print("Scraping your schedule data...")
 
     data = scrape(user, termid)
@@ -62,4 +65,21 @@ def manual():
 
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) == 4:
+        courseList = automatic(sys.argv[1], sys.argv[2], sys.argv[3])
+
+        if courseList is not None:
+
+            print("Course scraped successfully, generating iCal file now...")
+
+            calendar = generateCal(courseList)
+            print("\niCal file generated, please import it into Calendar of your choice!")
+
+            os.system("start " + calendar)
+
+            while input("Press <ENTER> to quit.") != "":
+                pass
+    elif len(sys.argv) == 1:
+        main()
+    else:
+        print("Incorrect amount of argument given")
