@@ -60,11 +60,11 @@ def generateCal(courseList):
 
                 if section.room is not None:
                     e.add('location', section.room.getAddress())
-                    des = section.room.building + " " + section.room.room
+                    des = section.room.building + " " + section.room.room + "\n"
                 else:
                     des = ""
 
-                des += "\nSection: " + course.sectionId
+                des += "Section: " + course.sectionId
                 des += "\n" + ("Lecture" if section.isLecture else "Discussion")
                 e.add('description', des)
 
