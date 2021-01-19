@@ -19,6 +19,7 @@ The program outputs a file `course_schedule.ics` which can then be imported into
 ### Automatic Scraper (with support for cli input)
 
 ~~Try `src/main.py <username> <password> <termid>` for commandline argument input~~
+
 See [Usage](##Usage)
 
 ### Term ID
