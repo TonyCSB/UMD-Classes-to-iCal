@@ -5,7 +5,7 @@ from CAS import login
 from scraper import scrape
 from user import User
 from getpass import getpass
-import os, time, sys, argparse
+import os, time, argparse
 
 parser = argparse.ArgumentParser()
 
