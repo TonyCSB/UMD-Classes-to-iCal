@@ -21,15 +21,13 @@ class Section:
     def __init__(self, day: str, start: str, end: str, building: str, room: str, isLecture: bool):
 
         # initialize the values
-        if day is not None:
-            self.day = processDay(day)
-            self.start = processTime(start)
-            self.end = processTime(end)
+        self.day = processDay(day)
+        self.start = processTime(start)
+        self.end = processTime(end)
+        if building is not None:
             self.room = Building(building, room)
-            self.online = False
         else:
-            self.day, self.start, self.end, self.room = None, None, None, None
-            self.online = True
+            self.room = None
         self.isLecture = isLecture
 
     def __str__(self):

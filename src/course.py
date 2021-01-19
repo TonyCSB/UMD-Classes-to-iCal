@@ -30,30 +30,29 @@ class Course:
         sectionInfo = soup.find('div', {'class': 'class-days-container'})
 
         # check if the section/course exists
-        if sectionInfo is None:
-            raise ValueError("Error - Course/Section doesn't exist")
-
-        # get info for detailed courses
-        sections = sectionInfo.findAll('div', {'class': 'row'})
         sectionList = []
+        if sectionInfo is not None:
+            # get info for detailed courses
+            sections = sectionInfo.findAll('div', {'class': 'row'})
 
-        # process lecture and discussion sections for the course
-        for section in sections:
-            try:
-                days = section.find('span', {'class': 'section-days'}).string
-                start = section.find('span', {'class': 'class-start-time'}).string
-                end = section.find('span', {'class': 'class-end-time'}).string
-                building = section.find('span', {'class': 'building-code'}).string
-                room = section.find('span', {'class': 'class-room'}).string
-                self.online = False
-            except AttributeError:
-                days, start, end, building, room = None, None, None, None, None
-                self.online = True
+            # process lecture and discussion sections for the course
+            for section in sections:
+                try:
+                    days = section.find('span', {'class': 'section-days'}).string
+                    start = section.find('span', {'class': 'class-start-time'}).string
+                    end = section.find('span', {'class': 'class-end-time'}).string
+                    room = section.find('span', {'class': 'class-room'}).string
+                    if "online" not in room.lower():
+                        building = section.find('span', {'class': 'building-code'}).string
+                    else:
+                        building = None
+                except AttributeError:
+                    days, start, end, building, room = None, None, None, None, None
 
-            if section.find('span', {'class': 'class-type'}) is None:
-                sectionList.append(Section(days, start, end, building, room, True))
-            else:
-                sectionList.append(Section(days, start, end, building, room, False))
+                if section.find('span', {'class': 'class-type'}) is None:
+                    sectionList.append(Section(days, start, end, building, room, True))
+                else:
+                    sectionList.append(Section(days, start, end, building, room, False))
 
         self.sectionList = sectionList
 

@@ -28,45 +28,47 @@ def generateCal(courseList):
         dates = fall
 
     for course in courseList:
-        if not course.online:
-            for section in course.sectionList:
-                for date in dates:
-                    e = Event()
-                    e.add('summary', course.courseId)
+        for section in course.sectionList:
+            for date in dates:
+                e = Event()
+                e.add('summary', course.courseId)
 
-                    firstDay = date[0]
-                    matched = False
-                    while not matched:
-                        for d in section.day:
-                            if firstDay.weekday() == d.value[0]:
-                                matched = True
-                                break
-                        if not matched:
-                            firstDay += datetime.timedelta(days=1)
+                firstDay = date[0]
+                matched = False
+                while not matched:
+                    for d in section.day:
+                        if firstDay.weekday() == d.value[0]:
+                            matched = True
+                            break
+                    if not matched:
+                        firstDay += datetime.timedelta(days=1)
 
-                    startTime = datetime.datetime.combine(firstDay, section.start)
-                    e.add('dtstart', startTime)
+                startTime = datetime.datetime.combine(firstDay, section.start)
+                e.add('dtstart', startTime)
 
-                    endTime = datetime.datetime.combine(firstDay, section.end)
-                    e.add('dtend', endTime)
+                endTime = datetime.datetime.combine(firstDay, section.end)
+                e.add('dtend', endTime)
 
-                    days = []
-                    for day in section.day:
-                        days.append(day.value[1])
+                days = []
+                for day in section.day:
+                    days.append(day.value[1])
 
-                    e.add('rrule', {'freq': 'weekly',
-                                    'wkst': 'su',
-                                    'until': datetime.datetime.combine(date[1], section.start),
-                                    'byday': days})
+                e.add('rrule', {'freq': 'weekly',
+                                'wkst': 'su',
+                                'until': datetime.datetime.combine(date[1], section.start),
+                                'byday': days})
 
+                if section.room is not None:
                     e.add('location', section.room.getAddress())
-
                     des = section.room.building + " " + section.room.room
-                    des += "\nSection: " + course.sectionId
-                    des += "\n" + ("Lecture" if section.isLecture else "Discussion")
-                    e.add('description', des)
+                else:
+                    des = ""
 
-                    cal.add_component(e)
+                des += "\nSection: " + course.sectionId
+                des += "\n" + ("Lecture" if section.isLecture else "Discussion")
+                e.add('description', des)
+
+                cal.add_component(e)
 
     with open(calendarName, 'wb') as ics_file:
         ics_file.write(cal.to_ical())

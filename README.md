@@ -18,7 +18,8 @@ The program outputs a file `course_schedule.ics` which can then be imported into
 
 ### Automatic Scraper (with support for cli input)
 
-Try `src/main.py <username> <password> <termid>` for commandline argument input
+~~Try `src/main.py <username> <password> <termid>` for commandline argument input~~
+See [Usage](##Usage)
 
 ### Term ID
 In the form of `YYYYMM`, such as `202001`.
@@ -32,6 +33,22 @@ Must contains the four letter department code and three digit course code. (Opti
 
 ### Section ID
 Must be in the format of four code. Such as `0101`.
+
+## Usage
+```[Bash]
+usage: src/main.py [-h] [-a | -m] [-u USERNAME] [-p PASSWORD] [-t TERMID]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -a, --automatic       Run the calendar generator in automatic mode
+  -m, --manual          Run the calendar generator in manual mode
+  -u USERNAME, --username USERNAME
+                        UMD directory id for auto scraping
+  -p PASSWORD, --password PASSWORD
+                        Password for your directory id
+  -t TERMID, --termID TERMID
+                        Term ID to be scraped
+```
 
 ## Disclaimer
 
