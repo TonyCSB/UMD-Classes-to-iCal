@@ -35,7 +35,7 @@ def main():
         courseList = manual()
         print("Course input successfully, generating iCal file now...")
     elif args.automatic:
-        courseList = automatic(args.username, args.password, str(args.termID))
+        courseList = automatic(args.username, args.password, args.termID)
         if courseList is None:
             while input("Press <ENTER> to quit.") != "":
                 return False
@@ -83,7 +83,7 @@ def addArgument():
     mode.add_argument("-m", "--manual", action='store_true', help="Run the calendar generator in manual mode")
     parser.add_argument("-u", "--username", type=str, help="UMD directory id for auto scraping")
     parser.add_argument("-p", "--password", type=str, help="Password for your directory id")
-    parser.add_argument("-t", "--termID", type=int, help="Term ID to be scraped")
+    parser.add_argument("-t", "--termID", type=str, help="Term ID to be scraped")
 
 
 if __name__ == "__main__":
