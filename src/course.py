@@ -49,10 +49,12 @@ class Course:
                 except AttributeError:
                     days, start, end, building, room = None, None, None, None, None
 
-                if section.find('span', {'class': 'class-type'}) is None:
-                    sectionList.append(Section(days, start, end, building, room, True))
-                else:
-                    sectionList.append(Section(days, start, end, building, room, False))
+                # Check for online section
+                if start is not None:
+                    if section.find('span', {'class': 'class-type'}) is None:
+                        sectionList.append(Section(days, start, end, building, room, True))
+                    else:
+                        sectionList.append(Section(days, start, end, building, room, False))
 
         self.sectionList = sectionList
 

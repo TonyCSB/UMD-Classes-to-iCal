@@ -39,6 +39,10 @@ class Section:
 
 def processDay(day: str):
     dayList = []
+
+    if day is None:
+        return []
+
     if "M" in day:
         dayList.append(Day.Monday)
     if "Tu" in day:
@@ -54,6 +58,9 @@ def processDay(day: str):
 
 
 def processTime(time):
+    if time is None:
+        return None
+
     regex = r"^(\d?\d):(\d{2})(am|pm)$"
     match = re.search(regex, time)
 

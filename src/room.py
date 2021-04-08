@@ -13,10 +13,10 @@ class Building:
         self.state = ""
         self.zip = 0
 
-        print("https://maps.umd.edu/arcgis/rest/services/Layers/CampusMapDefault/MapServer/0/query?f=json&where=UPPER(NAME)%20like%20%27%25" + building + "%25%27%20OR%20BUILDINGID%20like%20%27%25" + building + "%25%27%20OR%20UPPER(BLDG_CODE)%20like%20%27%25" + building + "%25%27&outFields=BUILDINGID")
-        idDict = requests.get("https://maps.umd.edu/arcgis/rest/services/Layers/CampusMapDefault/MapServer/0/query?f=json&where=UPPER(NAME)%20like%20%27%25" + building + "%25%27%20OR%20BUILDINGID%20like%20%27%25" + building + "%25%27%20OR%20UPPER(BLDG_CODE)%20like%20%27%25" + building + "%25%27&outFields=BUILDINGID").json()
+        # TODO: Http request instead of https for certificate invalidation issue
+        idDict = requests.get("http://maps.umd.edu/arcgis/rest/services/Layers/CampusMapDefault/MapServer/0/query?f=json&where=UPPER(NAME)%20like%20%27%25" + building + "%25%27%20OR%20BUILDINGID%20like%20%27%25" + building + "%25%27%20OR%20UPPER(BLDG_CODE)%20like%20%27%25" + building + "%25%27&outFields=BUILDINGID").json()
         buildingId = idDict["features"][0]["attributes"]["BUILDINGID"]
-        addressDict = requests.get("https://maps.umd.edu/arcgis/rest/services/Layers/CampusMapDefault/MapServer/9/query?f=json&where=BLDGNUM%20%3D%20%27" + buildingId + "%27&returnGeometry=false&outFields=BLDGNUM%2CNAME%2CSTREET%2CCITY%2CSTATE%2CZIP").json()
+        addressDict = requests.get("http://maps.umd.edu/arcgis/rest/services/Layers/CampusMapDefault/MapServer/9/query?f=json&where=BLDGNUM%20%3D%20%27" + buildingId + "%27&returnGeometry=false&outFields=BLDGNUM%2CNAME%2CSTREET%2CCITY%2CSTATE%2CZIP").json()
         self.buildingName = addressDict["features"][0]["attributes"]["NAME"]
         self.buildingName = self.buildingName.title()
         self.address = addressDict["features"][0]["attributes"]["STREET"]
