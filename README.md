@@ -2,6 +2,10 @@
 
 This program reads in courses that the user inputs (course and section number) per semester and outputs them into a standardized iCal format that can be imported into popular calendar applications including Google Calendar.
 
+## PROJECT IS NO LONGER BEING MAINTAINED
+
+This project is no longer being maintained. All functions are provided as is, please proceed with your own discretion. You are more than welcomed to fork this project and continue further development.
+
 ## Features:
 
 * Course data can be imported through your login info directly NOW
